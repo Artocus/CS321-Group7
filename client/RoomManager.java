@@ -27,7 +27,7 @@ public class RoomManager {
 			return;
 		}
 		
-		Room room = new Room("localhost", port, hostCreation);
+		Room room = new Room("localhost", port, hostCreation, this);
 		room.addUser(new User(username, "localhost"));
 		
 		rooms.add(room);
@@ -42,7 +42,7 @@ public class RoomManager {
 			return;
 		}
 		
-		Room room = new Room(ip, port, chatClientConnection);
+		Room room = new Room(ip, port, chatClientConnection, this);
 		
 		
 		rooms.add(room);

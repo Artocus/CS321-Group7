@@ -11,16 +11,18 @@ public class Room {
 	private String ip;
 	private int port;
 	private RoomConnection roomConnection;
+	private RoomManager roomManager;
 	private List<String> messageLog;
 	private List<Game> games;
 	
-	public Room(String ip, int port, RoomConnection roomConnection) {
+	public Room(String ip, int port, RoomConnection roomConnection, RoomManager rm) {
 		this.ip = ip;
 		this.port = port;
 		users = new ArrayList<User>();
 		messageLog = new ArrayList<String>();
 		games = new ArrayList<Game>();
 		this.roomConnection = roomConnection;
+		this.roomManager = rm;
 	}
 	
 	public String getIP() {
@@ -49,7 +51,8 @@ public class Room {
 	}
 	
 	public void startGame(int gameType) {
-		//TODO switch statement of game types
+		// Add switch statement for type
+		// [class](gameType, roomManager, this)
 	}
 	
 	public Game getGame(int gameNumber) {
