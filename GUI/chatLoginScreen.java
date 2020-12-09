@@ -1,8 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+
 import java.awt.*;
-import java.net.Socket;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
@@ -13,27 +13,45 @@ class chatLoginScreen{
   chatLoginScreen(){
     
     JFrame logframe = new JFrame("Welcome");
-    logframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    logframe.setSize(800, 600); 
-    logframe.setVisible(true);
+    logframe.setLayout(new FlowLayout());
+    logframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    logframe.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            if (cw == null) {
+            	System.exit(0);
+            }
+        }
+    });
+    logframe.setSize(800, 600);
     
     //buttons go here
-    JButton enterButton = new JButton("Enter");
-    logframe.add(enterButton);
+    JLabel label = new JLabel("Enter Username: ");
+	JTextField tf = new JTextField(32);
+	JLabel error = new JLabel();
+	
+	logframe.add(label);
+	logframe.add(tf);
+	logframe.add(error);
+	
+	logframe.setVisible(true);
     
     ActionListener a = new ActionListener()
     {
       @Override
       public void actionPerformed(ActionEvent e)
       {
-        if(e.getSource() == enterButton)
-          //chatGUI.testMessage();
-          
-        cw = new chatWindows();
-        //logframe.dispatchEvent(new WindowEvent(logframe, WindowEvent.WINDOW_CLOSING));
+        if(e.getActionCommand().contains(",")) {
+        	error.setText("Usernames can't have commas!");
+        }else if(e.getActionCommand().equals("")){
+        	error.setText("Usernames can't be blank!");
+        }else {
+        cw = new chatWindows(e.getActionCommand());
+        logframe.dispatchEvent(new WindowEvent(logframe, WindowEvent.WINDOW_CLOSING));
+        }
       }
     };
-    enterButton.addActionListener(a);
+    tf.addActionListener(a);
     
   }
 }

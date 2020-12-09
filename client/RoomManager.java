@@ -11,8 +11,10 @@ import connection.HostCreation;
 public class RoomManager {
 
 	private List<Room> rooms;
+	private String username;
 	
-	public RoomManager() {
+	public RoomManager(String user) {
+		username = user;
 		rooms = new ArrayList<Room>();
 	}
 	
@@ -26,9 +28,9 @@ public class RoomManager {
 		}
 		
 		Room room = new Room("localhost", port, hostCreation);
-		room.addUser(new User("localhost", "name"));
+		room.addUser(new User(username, "localhost"));
 		
-		rooms.add(new Room("localhost", port, hostCreation));
+		rooms.add(room);
 	}
 	
 	public void joinRoom(String ip, int port) {
@@ -44,17 +46,31 @@ public class RoomManager {
 		
 		
 		rooms.add(room);
+		
+		sendMessage("newUser,", rooms.size()-1, false);
 	}
 	
-	public void sendMessage(String message, int roomNumber) {
+	public void sendMessage(String message, int roomNumber, boolean hostDistribute) {
+		Room room = rooms.get(roomNumber);
+		sendMessage(message, room, hostDistribute);
+	}
+	
+	public void sendMessage(String message, Room room, boolean hostDistribute) {
 		try {
-			rooms.get(roomNumber).getRoomConnection().sendMessage(message);
+			if(!hostDistribute) {
+				message = username + "," + message;
+			}
+			room.getRoomConnection().sendMessage( message);
+			User[] users = room.getUsers();
+			if(users.length > 0 && users[0].getIP() == "localhost" && !hostDistribute) {
+				room.addMessage(message);
+			}
 		} catch (UTFDataFormatException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<String> receiveMessage(int roomNumber) {
+	public boolean receiveMessage(int roomNumber) {
 		Room room = rooms.get(roomNumber);
 		List<String> messages = null;
 		boolean isHost = false;
@@ -66,18 +82,102 @@ public class RoomManager {
 			messages = room.getRoomConnection().receiveMessage();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return messages;
 		}
 		for(String message : messages) {
-			room.addChatMessage(message);
+			String[] breakdown = message.split(",", 3);
+			if(breakdown[1].equals("newUser")) {
+				room.addUser(new User(breakdown[0], "IP?"));
+			}else if(breakdown[1].equals("userList")) {
+				String[] userList = breakdown[2].split(",");
+				for(String user : userList) {
+					room.addUser(new User(user, "IP?"));
+				}
+			}else if(breakdown[1].equals("leaveRoom")) {
+				room.removeUser(breakdown[0]);
+			}else if(breakdown[1].equals("closeRoom")) {
+				try {
+					room.getRoomConnection().close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				rooms.remove(room);
+				return true;
+			}
+			room.addMessage(message);
 			if(isHost) {
-				sendMessage(message, roomNumber);
+				sendMessage(message, roomNumber, true);
 			}
 		}
-		return messages;
+		return false;
 	}
 	
-	public void requestUserList(int roomNumber) {
-		//TODO: Format for requesting user list from host
+	public void acceptNewConnections(int roomNumber) {
+		Room room = rooms.get(roomNumber);
+		User[] users = room.getUsers();
+		if(users.length > 0 && users[0].getIP() == "localhost") {
+			String userList = username + ",userList";
+			for(int i = 0; i < users.length; i++) {
+				userList += "," + users[i].getName();
+			}
+			try {
+				((HostCreation) room.getRoomConnection()).acceptNewConnection(userList);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+	}
+	
+	public String[] getMessageLog(int roomNumber) {
+		return rooms.get(roomNumber).getMessageLog();	
+	}
+	
+	public String[] getUsers(int roomNumber) {
+		Room room = rooms.get(roomNumber);
+		User[] users = room.getUsers();
+		String[] usernames = new String[users.length];
+		for(int i = 0; i < users.length; i++) {
+			usernames[i] = users[i].getName();
+		}
+		return usernames;
+	}
+	
+	public void leaveRoom(int roomNumber) {
+		Room room = rooms.get(roomNumber);
+		User[] users = room.getUsers();
+		
+		if(users.length > 0 && users[0].getIP() == "localhost") {
+			
+			sendMessage("closeRoom", roomNumber, false);
+			
+			try {
+				room.getRoomConnection().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			rooms.remove(room);
+			
+		}else {
+			
+			sendMessage("leaveRoom", roomNumber, false);
+			
+			try {
+				room.getRoomConnection().close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			rooms.remove(room);
+		}
+	}
+	
+	public int getNumberOfRooms() {
+		return rooms.size();
+	}
+	
+	public String getRoomID(int roomNumber) {
+		Room room = rooms.get(roomNumber);
+		return room.getIP() + " " + room.getPort();
 	}
 }

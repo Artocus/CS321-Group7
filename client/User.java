@@ -17,4 +17,12 @@ public class User {
 	public String getIP() {
 		return ip;	
 	}
+	
+	public boolean equals(Object u) {
+		if(!(u instanceof User)) {
+			return false;
+		}
+		
+		return name.equals(((User)u).name);
+	}
 }

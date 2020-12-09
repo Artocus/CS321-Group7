@@ -9,10 +9,14 @@ public abstract class Game {
 	private List<User> players; // List of players
 	private int turn; // Index of the user whos turn it is
 	private int winner; // Index of the user who won
+	private RoomManager rm;
+	private Room room;
 	
-	public Game(int gameType) {
+	public Game(int gameType, RoomManager rm, Room room) {
 		this.gameType = gameType;
 		players = new ArrayList<User>();
+		this.rm = rm;
+		this.room = room;
 	}
 	
 	public int getGameType() {
@@ -46,7 +50,7 @@ public abstract class Game {
 	}
 	
 	public void sendMove(String move) {
-		//TODO for Art
+		rm.sendMessage(move, room, false);
 	}
 	
 	public abstract void receiveMove(String move);

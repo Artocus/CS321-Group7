@@ -11,14 +11,15 @@ public class Room {
 	private String ip;
 	private int port;
 	private RoomConnection roomConnection;
-	private List<String> chatLog;
-	// private Game[] games;
+	private List<String> messageLog;
+	private List<Game> games;
 	
 	public Room(String ip, int port, RoomConnection roomConnection) {
 		this.ip = ip;
 		this.port = port;
 		users = new ArrayList<User>();
-		chatLog = new ArrayList<String>();
+		messageLog = new ArrayList<String>();
+		games = new ArrayList<Game>();
 		this.roomConnection = roomConnection;
 	}
 	
@@ -35,8 +36,16 @@ public class Room {
 	}
 	
 	public void addUser(User u) {
-		//TODO: Make to so duplicate users cant be added
 		users.add(u);
+	}
+	
+	public void removeUser(String name) {
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getName().equals(name)) {
+				users.remove(i);
+				break;
+			}
+		}
 	}
 	
 	public User[] getUsers(){
@@ -44,12 +53,12 @@ public class Room {
 		return users.toArray(u);
 	}
 	
-	public void addChatMessage(String chatMessage) {
-		chatLog.add(chatMessage);
+	public void addMessage(String message) {
+		messageLog.add(message);
 	}
 	
-	public String[] getChatLog() {
-		String[] m = new String[chatLog.size()];
-		return chatLog.toArray(m);
+	public String[] getMessageLog() {
+		String[] m = new String[messageLog.size()];
+		return messageLog.toArray(m);
 	}
 }

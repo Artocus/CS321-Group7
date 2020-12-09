@@ -17,6 +17,7 @@ public class HostCreation implements RoomConnection{
 		
 		try {
 			serverSocket = new ServerSocket(port);
+			serverSocket.setSoTimeout(1);
 		} catch (IOException e) {
 			throw e;
 		}
@@ -24,11 +25,12 @@ public class HostCreation implements RoomConnection{
 		clientConnections = new ArrayList<ChatClientConnection>();
 	}
 	
-	public void acceptNewConnection() throws IOException {
+	public void acceptNewConnection(String userList) throws IOException {
 		try {
-			clientConnections.add(new ChatClientConnection(serverSocket.accept(), retryAmount));
+			ChatClientConnection ccc = new ChatClientConnection(serverSocket.accept(), retryAmount);
+			clientConnections.add(ccc);
+			ccc.sendMessage(userList);
 		} catch (IOException e) {
-			throw e;
 		}
 	}
 	

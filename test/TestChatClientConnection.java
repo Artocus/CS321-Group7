@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,9 +23,13 @@ class TestChatClientConnection {
 			ChatClientConnection client1 = new ChatClientConnection(clientSocket, 3);
 			ChatClientConnection client2 = new ChatClientConnection(socket, 3);
 			
-			String message = ":)";
-			assertTrue(client1.sendMessage(message));
-			assertEquals(client2.receiveMessage(), message);
+			String message1 = ":)";
+			String message2 = "Hello World";
+			assertTrue(client1.sendMessage(message1));
+			assertTrue(client1.sendMessage(message2));
+			List<String> messages = client2.receiveMessage();
+			assertEquals(messages.get(0), message1);
+			assertEquals(messages.get(1), message2);
 			
 			client1.close();
 			client2.close();

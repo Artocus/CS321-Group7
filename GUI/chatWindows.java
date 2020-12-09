@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.net.Socket;
 import java.awt.event.ActionListener;
@@ -9,42 +10,32 @@ import java.awt.event.ActionEvent;
 class chatWindows{
   chatMenubar mb;
   chatTabs tab;
+  String username;
   
-  chatWindows(){
+  chatWindows(String username){
     mb = new chatMenubar();
-    tab = new chatTabs();
+    tab = new chatTabs(username);
     
-    JFrame frame = new JFrame("Chat Frame / CLUB HOUSE GAMES 2.INFINITY :D");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JFrame frame = new JFrame("Chat Client");
+    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    frame.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            if (JOptionPane.showConfirmDialog(frame, 
+                "Are you sure you want to close this window?", "Close Window?", 
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            	tab.close();
+                System.exit(0);
+            }
+        }
+    });
     frame.setSize(800, 600); 
     frame.setVisible(true);
     
-    JPanel panel = new JPanel(); //panel insvisible until you add stuff
-    
-    //text area test
-    JTextArea textArea = new JTextArea();
-    
-    //JComboBox
-    String options[] = {"option 1", "option 2", "option 3"};
-    JComboBox jbox = new JComboBox(options);
-    //jbox.setBounds(40,40,90,20);
-    
-    //scrollbars?
-    JScrollBar sBar = new JScrollBar();
-    
-    //legacy behavior
-    //frame.getContentPane().add(BorderLayout.SOUTH, panel);
-    //frame.getContentPane().add(BorderLayout.NORTH, mb.menuBar);
-    //frame.getContentPane().add(BorderLayout.WEST, textArea);
-    //test stuff
-    //frame.getContentPane().add(BorderLayout.EAST, sBar);
-    //frame.getContentPane().add(BorderLayout.CENTER, tab.tPane);
-    
-    frame.getContentPane().add(BorderLayout.NORTH, mb.menuBar);
-    frame.getContentPane().add(BorderLayout.WEST, tab.tPane);
-    
-    
+    frame.getContentPane().add(tab.tPane);
   }
+  
   
   public static void lightMode()
   {

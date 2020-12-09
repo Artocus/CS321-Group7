@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UTFDataFormatException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,9 @@ public class ChatClientConnection implements RoomConnection{
 		
 		while(tries < retryAmount) {
 			try {
-				output.writeUTF(message);
+				byte[] data = message.getBytes(StandardCharsets.UTF_8);
+				output.writeInt(data.length);
+				output.write(data);
 				return true;
 			}catch(UTFDataFormatException dfe) {
 				throw dfe;
@@ -76,9 +79,12 @@ public class ChatClientConnection implements RoomConnection{
 	 */
 	public List<String> receiveMessage() throws IOException {
 		List<String> messages = new ArrayList<String>();
-		if(input.available() != 0) {
+		while(input.available() != 0) {
 			try {
-				messages.add(input.readUTF());
+				int length = input.readInt();
+				byte[] data = new byte[length];
+				input.read(data);
+				messages.add(new String(data, StandardCharsets.UTF_8));
 			}catch(IOException ioe) {
 				throw ioe;
 			}
