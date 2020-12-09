@@ -174,8 +174,13 @@ class chatTabs{
 					roomPanels.get(i).UpdateUserList(userList);
 					String[] chatLog = roomManager.getMessageLog(i);
 					if (chatLog.length > 0) {
+						roomPanels.get(i).UpdateChatLog(chatLog);
 					}
-					roomPanels.get(i).UpdateChatLog(chatLog);
+					
+					Integer[] games = roomPanels.get(i).GetGames();
+					for(int j = 0; j < games.length; j++) {
+						roomManager.startGame(i, (int)games[j]);
+					}
 				}
 			}
 			try {

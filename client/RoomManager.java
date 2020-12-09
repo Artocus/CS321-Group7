@@ -180,4 +180,14 @@ public class RoomManager {
 		Room room = rooms.get(roomNumber);
 		return room.getIP() + " " + room.getPort();
 	}
+
+	public void startGame(int roomNumber, int gameType) {
+		Room room = rooms.get(roomNumber);
+		room.startGame(gameType);
+	}
+	
+	public Game getGame(int roomNumber, int gameNumber) {
+		
+		return rooms.get(roomNumber).getGame(gameNumber);
+	}
 }

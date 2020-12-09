@@ -48,6 +48,14 @@ public class Room {
 		}
 	}
 	
+	public void startGame(int gameType) {
+		//TODO switch statement of game types
+	}
+	
+	public Game getGame(int gameNumber) {
+		return games.get(gameNumber);
+	}
+	
 	public User[] getUsers(){
 		User[] u = new User[users.size()];
 		return users.toArray(u);

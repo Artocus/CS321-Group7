@@ -50,6 +50,13 @@ public class RoomPanel extends javax.swing.JPanel {
     	return messages;
     }
 
+    public Integer[] GetGames() {
+    	Integer[] games = new Integer[startGames.size()];
+    	games = startGames.toArray(games);
+    	startGames.removeAll(startGames);
+    	return games;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +68,8 @@ public class RoomPanel extends javax.swing.JPanel {
 
         sideTabs = new javax.swing.JTabbedPane();
         userTab = new javax.swing.JScrollPane();
+        gameChoiceTab = new javax.swing.JScrollPane();
+        game0Button = new javax.swing.JButton();
         userList = new javax.swing.JList<>();
         chatPane = new javax.swing.JScrollPane();
         chatBoxHistory = new javax.swing.JTextArea();
@@ -69,10 +78,12 @@ public class RoomPanel extends javax.swing.JPanel {
         gamePane = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         currentMessages = new ArrayList<String>();
+        startGames = new ArrayList<Integer>();
 
         userTab.setViewportView(userList);
 
         sideTabs.addTab("Users", userTab);
+        sideTabs.addTab("Games", gameChoiceTab);
 
         chatBoxHistory.setEditable(false);
         chatBoxHistory.setColumns(20);
@@ -91,6 +102,13 @@ public class RoomPanel extends javax.swing.JPanel {
         chatButtonSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chatButtonSendActionPerformed(evt);
+            }
+        });
+        
+        game0Button.setText("TicTacToe");
+        chatButtonSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startTicTacToe(evt);
             }
         });
 
@@ -159,6 +177,10 @@ public class RoomPanel extends javax.swing.JPanel {
         chatBoxSendActionPerformed(evt);
     }//GEN-LAST:event_chatButtonSendActionPerformed
 
+    private void startTicTacToe(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
+        startGames.add(0);
+        // add TicTacToe Panel in game panel
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatBoxHistory;
@@ -170,7 +192,10 @@ public class RoomPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane sideTabs;
     private javax.swing.JList<String> userList;
     private javax.swing.JScrollPane userTab;
+    private javax.swing.JScrollPane gameChoiceTab;
+    private javax.swing.JButton game0Button;
     private int chatLogIndex = 0;
     // End of variables declaration//GEN-END:variables
     private List<String> currentMessages;
+    private List<Integer> startGames;
 }
