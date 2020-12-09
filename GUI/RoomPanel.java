@@ -4,6 +4,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -70,6 +72,10 @@ public class RoomPanel extends javax.swing.JPanel {
         userTab = new javax.swing.JScrollPane();
         gameChoiceTab = new javax.swing.JScrollPane();
         game0Button = new javax.swing.JButton();
+        game1Button = new javax.swing.JButton();
+        game2Button = new javax.swing.JButton();
+        game3Button = new javax.swing.JButton();
+        gameChoicePanel = new javax.swing.JPanel();
         userList = new javax.swing.JList<>();
         chatPane = new javax.swing.JScrollPane();
         chatBoxHistory = new javax.swing.JTextArea();
@@ -91,7 +97,7 @@ public class RoomPanel extends javax.swing.JPanel {
         chatBoxHistory.setRows(5);
         chatBoxHistory.setText("");
         chatPane.setViewportView(chatBoxHistory);
-
+        
         chatBoxSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chatBoxSendActionPerformed(evt);
@@ -105,12 +111,41 @@ public class RoomPanel extends javax.swing.JPanel {
             }
         });
         
+        gameChoicePanel.setLayout(new BoxLayout(gameChoicePanel, BoxLayout.Y_AXIS));
+        
         game0Button.setText("TicTacToe");
-        chatButtonSend.addActionListener(new java.awt.event.ActionListener() {
+        game0Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startTicTacToe(evt);
             }
         });
+        gameChoicePanel.add(game0Button);
+        
+        game1Button.setText("Chess");
+        game1Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startChess(evt);
+            }
+        });
+        gameChoicePanel.add(game1Button);
+        
+        game2Button.setText("Checkers");
+        game2Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startCheckers(evt);
+            }
+        });
+        gameChoicePanel.add(game2Button);
+        
+        game3Button.setText("Orthello");
+        game3Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startOrthello(evt);
+            }
+        });
+        gameChoicePanel.add(game3Button);
+        
+        gameChoiceTab.setViewportView(gameChoicePanel);
 
         jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
@@ -181,6 +216,21 @@ public class RoomPanel extends javax.swing.JPanel {
         startGames.add(0);
         // add TicTacToe Panel in game panel
     }
+    
+    private void startChess(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
+        startGames.add(1);
+        // add Chess Panel in game panel
+    }
+    
+    private void startCheckers(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
+        startGames.add(2);
+        // add Checkers Panel in game panel
+    }
+    
+    private void startOrthello(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
+        startGames.add(3);
+        // add Orthello Panel in game panel
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatBoxHistory;
@@ -194,6 +244,10 @@ public class RoomPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane userTab;
     private javax.swing.JScrollPane gameChoiceTab;
     private javax.swing.JButton game0Button;
+    private javax.swing.JButton game1Button;
+    private javax.swing.JButton game2Button;
+    private javax.swing.JButton game3Button;
+    private javax.swing.JPanel gameChoicePanel;
     private int chatLogIndex = 0;
     // End of variables declaration//GEN-END:variables
     private List<String> currentMessages;
