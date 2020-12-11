@@ -67,6 +67,8 @@ public class RoomManager {
 				String[] breakdown = message.split(",", 3);
 				if(breakdown[1].equals("tictactoe")) {
 					room.getGame(0).receiveMove(breakdown[2]);
+				}else if(breakdown[1].equals("chess")) {
+					room.getGame(1).receiveMove(breakdown[2]);
 				}
 			}
 		} catch (UTFDataFormatException e) {
@@ -98,6 +100,8 @@ public class RoomManager {
 				}
 			}else if(breakdown[1].equals("tictactoe")) {
 				room.getGame(0).receiveMove(breakdown[2]);
+			}else if(breakdown[1].equals("chess")) {
+					room.getGame(1).receiveMove(breakdown[2]);
 			}else if(breakdown[1].equals("leaveRoom")) {
 				room.removeUser(breakdown[0]);
 			}else if(breakdown[1].equals("closeRoom")) {

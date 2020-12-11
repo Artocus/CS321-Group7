@@ -54,7 +54,10 @@ public class Room {
 		if(games[gameType] == null) {
 			switch(gameType) {
 				case 0:
-					games[0] = new TicTacToe(0, roomManager, this);
+					games[gameType] = new TicTacToe(gameType, roomManager, this);
+					break;
+				case 1:
+					games[gameType] = new Chess(gameType, roomManager, this);
 					break;
 		
 			}

@@ -68,6 +68,9 @@ public class RoomPanel extends javax.swing.JPanel {
     			case 0:
     				gamePanels[gameType] = new TicTacToePanel(g);
     				break;
+    			case 1:
+    				gamePanels[gameType] = new ChessPanel(g);
+    				break;
     		}
     		gamePane.setViewportView(gamePanels[gameType]);
     	}

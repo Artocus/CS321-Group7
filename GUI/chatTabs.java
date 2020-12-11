@@ -191,7 +191,7 @@ class chatTabs{
 				}
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(250);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
