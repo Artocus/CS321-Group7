@@ -60,7 +60,7 @@ public class Room {
 					games[gameType] = new Chess(gameType, roomManager, this);
 					break;
 				case 2:
-					//games[gameType] = new Checkers(gameType, roomManager, this);
+					games[gameType] = new checkers(gameType, roomManager, this);
 					break;
 			}
 		}

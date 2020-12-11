@@ -72,7 +72,7 @@ public class RoomPanel extends javax.swing.JPanel {
     				gamePanels[gameType] = new ChessPanel(g);
     				break;
     			case 2:
-    				//gamePanels[gameType] = new CheckersPanel(g);
+    				gamePanels[gameType] = new CheckersPanel(g);
     				break;
     		}
     		gamePane.setViewportView(gamePanels[gameType]);
