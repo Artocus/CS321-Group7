@@ -69,6 +69,8 @@ public class RoomManager {
 					room.getGame(0).receiveMove(breakdown[2]);
 				}else if(breakdown[1].equals("chess")) {
 					room.getGame(1).receiveMove(breakdown[2]);
+				}else if(breakdown[1].equals("checkers")) {
+					room.getGame(2).receiveMove(breakdown[2]);
 				}
 			}
 		} catch (UTFDataFormatException e) {
@@ -102,6 +104,8 @@ public class RoomManager {
 				room.getGame(0).receiveMove(breakdown[2]);
 			}else if(breakdown[1].equals("chess")) {
 					room.getGame(1).receiveMove(breakdown[2]);
+			}else if(breakdown[1].equals("checkers")) {
+				room.getGame(2).receiveMove(breakdown[2]);
 			}else if(breakdown[1].equals("leaveRoom")) {
 				room.removeUser(breakdown[0]);
 			}else if(breakdown[1].equals("closeRoom")) {

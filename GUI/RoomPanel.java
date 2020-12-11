@@ -71,6 +71,9 @@ public class RoomPanel extends javax.swing.JPanel {
     			case 1:
     				gamePanels[gameType] = new ChessPanel(g);
     				break;
+    			case 2:
+    				//gamePanels[gameType] = new CheckersPanel(g);
+    				break;
     		}
     		gamePane.setViewportView(gamePanels[gameType]);
     	}
@@ -91,7 +94,6 @@ public class RoomPanel extends javax.swing.JPanel {
         game0Button = new javax.swing.JButton();
         game1Button = new javax.swing.JButton();
         game2Button = new javax.swing.JButton();
-        game3Button = new javax.swing.JButton();
         gameChoicePanel = new javax.swing.JPanel();
         userList = new javax.swing.JList<>();
         chatPane = new javax.swing.JScrollPane();
@@ -154,14 +156,6 @@ public class RoomPanel extends javax.swing.JPanel {
             }
         });
         gameChoicePanel.add(game2Button);
-        
-        game3Button.setText("Orthello");
-        game3Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startOrthello(evt);
-            }
-        });
-        gameChoicePanel.add(game3Button);
         
         gameChoiceTab.setViewportView(gameChoicePanel);
 
@@ -241,10 +235,6 @@ public class RoomPanel extends javax.swing.JPanel {
     private void startCheckers(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
         startGames.add(2);
     }
-    
-    private void startOrthello(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
-        startGames.add(3);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea chatBoxHistory;
@@ -260,7 +250,6 @@ public class RoomPanel extends javax.swing.JPanel {
     private javax.swing.JButton game0Button;
     private javax.swing.JButton game1Button;
     private javax.swing.JButton game2Button;
-    private javax.swing.JButton game3Button;
     private javax.swing.JPanel gameChoicePanel;
     private int chatLogIndex = 0;
     // End of variables declaration//GEN-END:variables
