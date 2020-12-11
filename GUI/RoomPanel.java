@@ -67,15 +67,17 @@ public class RoomPanel extends javax.swing.JPanel {
     		switch(gameType) {
     			case 0:
     				gamePanels[gameType] = new TicTacToePanel(g);
+    				gameTabs.addTab("TicTacToe", gamePanels[gameType]);
     				break;
     			case 1:
     				gamePanels[gameType] = new ChessPanel(g);
+    				gameTabs.addTab("Chess", gamePanels[gameType]);
     				break;
     			case 2:
     				gamePanels[gameType] = new CheckersPanel(g);
+    				gameTabs.addTab("Checkers", gamePanels[gameType]);
     				break;
     		}
-    		gamePane.setViewportView(gamePanels[gameType]);
     	}
     }
     
@@ -89,6 +91,7 @@ public class RoomPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         sideTabs = new javax.swing.JTabbedPane();
+        gameTabs = new javax.swing.JTabbedPane();
         userTab = new javax.swing.JScrollPane();
         gameChoiceTab = new javax.swing.JScrollPane();
         game0Button = new javax.swing.JButton();
@@ -101,7 +104,6 @@ public class RoomPanel extends javax.swing.JPanel {
         chatBoxSend = new javax.swing.JTextField();
         chatButtonSend = new javax.swing.JButton();
         gamePane = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
         currentMessages = new ArrayList<String>();
         startGames = new ArrayList<Integer>();
         gamePanels = new JPanel[4];
@@ -158,12 +160,8 @@ public class RoomPanel extends javax.swing.JPanel {
         gameChoicePanel.add(game2Button);
         
         gameChoiceTab.setViewportView(gameChoicePanel);
-
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("aaaaand this is where I'd put a game.\n\n\n\n\n\n\t\t\tIF I HAD ONE");
-        gamePane.setViewportView(jTextArea3);
+        
+        gamePane.setViewportView(gameTabs);
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         setLayout(layout);
@@ -242,8 +240,8 @@ public class RoomPanel extends javax.swing.JPanel {
     private javax.swing.JButton chatButtonSend;
     private javax.swing.JScrollPane chatPane;
     private javax.swing.JScrollPane gamePane;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTabbedPane sideTabs;
+    private javax.swing.JTabbedPane gameTabs;
     private javax.swing.JList<String> userList;
     private javax.swing.JScrollPane userTab;
     private javax.swing.JScrollPane gameChoiceTab;
