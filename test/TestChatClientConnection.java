@@ -7,14 +7,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import connection.ChatClientConnection;
 
-class TestChatClientConnection {
+public class TestChatClientConnection {
 
 	@Test
-	void test() {
+	public void test() {
 		try {
 			ServerSocket hostSocket = new ServerSocket(5000);
 			Socket clientSocket = new Socket("localhost", 5000);

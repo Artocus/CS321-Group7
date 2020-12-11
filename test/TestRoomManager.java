@@ -2,17 +2,14 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
 import client.RoomManager;
-import client.User;
 
-class TestRoomManager {
+public class TestRoomManager {
 
 	@Test
-	void test() {
+	public void test() {
 		RoomManager rm1 = new RoomManager("rm1");
 		RoomManager rm2 = new RoomManager("rm2");
 		
