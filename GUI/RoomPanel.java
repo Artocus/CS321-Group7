@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
+import client.Game;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -59,6 +62,17 @@ public class RoomPanel extends javax.swing.JPanel {
     	return games;
     }
     
+    public void SetGame(Game g, int gameType) {
+    	if(gamePanels[gameType] == null) {
+    		switch(gameType) {
+    			case 0:
+    				gamePanels[gameType] = new TicTacToePanel(g);
+    				break;
+    		}
+    		gamePane.setViewportView(gamePanels[gameType]);
+    	}
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,6 +99,7 @@ public class RoomPanel extends javax.swing.JPanel {
         jTextArea3 = new javax.swing.JTextArea();
         currentMessages = new ArrayList<String>();
         startGames = new ArrayList<Integer>();
+        gamePanels = new JPanel[4];
 
         userTab.setViewportView(userList);
 
@@ -214,22 +229,18 @@ public class RoomPanel extends javax.swing.JPanel {
 
     private void startTicTacToe(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
         startGames.add(0);
-        // add TicTacToe Panel in game panel
     }
     
     private void startChess(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
         startGames.add(1);
-        // add Chess Panel in game panel
     }
     
     private void startCheckers(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
         startGames.add(2);
-        // add Checkers Panel in game panel
     }
     
     private void startOrthello(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatButtonSendActionPerformed
         startGames.add(3);
-        // add Orthello Panel in game panel
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -252,4 +263,5 @@ public class RoomPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private List<String> currentMessages;
     private List<Integer> startGames;
+    private JPanel[] gamePanels;
 }

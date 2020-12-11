@@ -64,6 +64,10 @@ public class RoomManager {
 			User[] users = room.getUsers();
 			if(users.length > 0 && users[0].getIP() == "localhost" && !hostDistribute) {
 				room.addMessage(message);
+				String[] breakdown = message.split(",", 3);
+				if(breakdown[1].equals("tictactoe")) {
+					room.getGame(0).receiveMove(breakdown[2]);
+				}
 			}
 		} catch (UTFDataFormatException e) {
 			e.printStackTrace();
@@ -92,6 +96,8 @@ public class RoomManager {
 				for(String user : userList) {
 					room.addUser(new User(user, "IP?"));
 				}
+			}else if(breakdown[1].equals("tictactoe")) {
+				room.getGame(0).receiveMove(breakdown[2]);
 			}else if(breakdown[1].equals("leaveRoom")) {
 				room.removeUser(breakdown[0]);
 			}else if(breakdown[1].equals("closeRoom")) {
@@ -186,8 +192,8 @@ public class RoomManager {
 		room.startGame(gameType);
 	}
 	
-	public Game getGame(int roomNumber, int gameNumber) {
+	public Game getGame(int roomNumber, int gameType) {
 		
-		return rooms.get(roomNumber).getGame(gameNumber);
+		return rooms.get(roomNumber).getGame(gameType);
 	}
 }

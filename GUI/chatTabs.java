@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 
+import client.Game;
 import client.RoomManager;
 
 import java.awt.*;
@@ -180,6 +181,12 @@ class chatTabs{
 					Integer[] games = roomPanels.get(i).GetGames();
 					for(int j = 0; j < games.length; j++) {
 						roomManager.startGame(i, (int)games[j]);
+					}
+					for(int j = 0; j < 4; j++) {
+						Game g = roomManager.getGame(i, j);
+						if(g != null) {
+							roomPanels.get(i).SetGame(g, j);
+						}
 					}
 				}
 			}

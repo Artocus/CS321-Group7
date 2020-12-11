@@ -2,11 +2,6 @@ package GUI;
 
 import javax.swing.*;
 
-import java.awt.*;
-import java.net.Socket;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 class chatWindows{
   chatMenubar mb;
   chatTabs tab;

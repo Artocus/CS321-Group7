@@ -13,14 +13,14 @@ public class Room {
 	private RoomConnection roomConnection;
 	private RoomManager roomManager;
 	private List<String> messageLog;
-	private List<Game> games;
+	private Game[] games;
 	
 	public Room(String ip, int port, RoomConnection roomConnection, RoomManager rm) {
 		this.ip = ip;
 		this.port = port;
 		users = new ArrayList<User>();
 		messageLog = new ArrayList<String>();
-		games = new ArrayList<Game>();
+		games = new Game[4];
 		this.roomConnection = roomConnection;
 		this.roomManager = rm;
 	}
@@ -51,12 +51,18 @@ public class Room {
 	}
 	
 	public void startGame(int gameType) {
-		// Add switch statement for type
-		// [class](gameType, roomManager, this)
+		if(games[gameType] == null) {
+			switch(gameType) {
+				case 0:
+					games[0] = new TicTacToe(0, roomManager, this);
+					break;
+		
+			}
+		}
 	}
 	
-	public Game getGame(int gameNumber) {
-		return games.get(gameNumber);
+	public Game getGame(int gameType) {
+		return games[gameType];
 	}
 	
 	public User[] getUsers(){
